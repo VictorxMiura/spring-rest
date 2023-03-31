@@ -1,10 +1,10 @@
-package br.com.miura.springrest;
+package com.example.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringRestApplicationTests {
+class DemoApplicationTests {
 
 	@Test
 	void contextLoads() {
