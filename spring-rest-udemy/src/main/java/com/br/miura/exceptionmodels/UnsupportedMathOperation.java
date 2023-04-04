@@ -1,13 +1,13 @@
-package com.example.demo.exceptionmodels;
+package com.br.miura.exceptionmodels;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class TesteException extends RuntimeException {
+public class UnsupportedMathOperation extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
-    public TesteException(String message) {
+    public UnsupportedMathOperation(String message) {
         super(message);
     }
 }

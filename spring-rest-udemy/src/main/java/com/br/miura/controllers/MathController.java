@@ -1,9 +1,9 @@
-package com.example.demo.controllers;
+package com.br.miura.controllers;
 
 
-import com.example.demo.convertoperations.NumberConverter;
-import com.example.demo.exceptionmodels.TesteException;
-import com.example.demo.mathoperations.Operation;
+import com.br.miura.convertoperations.NumberConverter;
+import com.br.miura.mathoperations.Operation;
+import com.br.miura.exceptionmodels.UnsupportedMathOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +20,7 @@ public class MathController {
     public double soma(@PathVariable ("numberOne") String numberOne,
                        @PathVariable ("numberTwo") String numberTwo) throws Exception {
         if (!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo)) {
-            throw new TesteException("Please set a numeric value");
+            throw new UnsupportedMathOperation("Please set a numeric value");
         }
         return operation.Soma(NumberConverter.convertDouble(numberOne) ,  NumberConverter.convertDouble(numberTwo));
     }
@@ -33,7 +33,7 @@ public class MathController {
             @PathVariable("numberTwo") String numberTwo
     ) throws  Exception {
         if (!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo)) {
-        throw new TesteException("Please set a numeric value");
+        throw new UnsupportedMathOperation("Please set a numeric value");
     }
         return operation.Subtração(NumberConverter.convertDouble(numberOne) ,  NumberConverter.convertDouble(numberTwo));
     }
@@ -44,9 +44,9 @@ public class MathController {
     public double Div(
             @PathVariable("numberOne") String numberOne,
             @PathVariable("numberTwo") String numberTwo
-    ) throws  TesteException {
+    ) throws UnsupportedMathOperation {
         if (!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo)) {
-        throw new TesteException("Please set a numeric value");
+        throw new UnsupportedMathOperation("Please set a numeric value");
     }
         return operation.Divisão(NumberConverter.convertDouble(numberOne) ,  NumberConverter.convertDouble(numberTwo));
     }
@@ -58,7 +58,7 @@ public class MathController {
             @PathVariable("numberOne") String numberOne,
             @PathVariable("numberTwo") String numberTwo
     ) throws  Exception {if (!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo)) {
-        throw new TesteException("Please set a numeric value");
+        throw new UnsupportedMathOperation("Please set a numeric value");
     }
         return operation.Multiplicação(NumberConverter.convertDouble(numberOne) ,  NumberConverter.convertDouble(numberTwo));
     }
@@ -71,7 +71,7 @@ public class MathController {
             @PathVariable("numberTwo") String numberTwo
     ) throws  Exception {
         if (!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo)) {
-        throw new TesteException("Please set a numeric value");
+        throw new UnsupportedMathOperation("Please set a numeric value");
     }
         return operation.Media(NumberConverter.convertDouble(numberOne) ,  NumberConverter.convertDouble(numberTwo));
     }
@@ -81,7 +81,7 @@ public class MathController {
             @PathVariable("number") String number
     ) throws  Exception {
         if (!NumberConverter.isNumeric(number)) {
-            throw new TesteException("Please set a numeric value! ");
+            throw new UnsupportedMathOperation("Please set a numeric value! ");
         }
         return operation.raiz(NumberConverter.convertDouble(number));
     }

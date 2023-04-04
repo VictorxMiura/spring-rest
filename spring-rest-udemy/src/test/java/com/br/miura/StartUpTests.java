@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.br.miura;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

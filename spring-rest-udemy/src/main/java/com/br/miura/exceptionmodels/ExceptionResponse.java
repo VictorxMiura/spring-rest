@@ -1,4 +1,4 @@
-package com.example.demo.exceptionmodels;
+package com.br.miura.exceptionmodels;
 
 import lombok.Getter;
 import lombok.Setter;

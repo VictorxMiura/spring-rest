@@ -1,4 +1,4 @@
-package com.example.demo.mathoperations;
+package com.br.miura.mathoperations;
 
 public class Operation {
     public double Soma(Double numberOne, Double numberTwo){

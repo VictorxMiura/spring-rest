@@ -1,7 +1,7 @@
-package com.example.demo.exceptions;
+package com.br.miura.exceptions;
 
-import com.example.demo.exceptionmodels.ExceptionResponse;
-import com.example.demo.exceptionmodels.TesteException;
+import com.br.miura.exceptionmodels.ExceptionResponse;
+import com.br.miura.exceptionmodels.UnsupportedMathOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -23,7 +23,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(TesteException.class)
+    @ExceptionHandler(UnsupportedMathOperation.class)
     public final ResponseEntity<ExceptionResponse> handleBadRequestException(Exception ex, WebRequest request) {
     ExceptionResponse exceptionResponse = new ExceptionResponse(
             new Date(),
