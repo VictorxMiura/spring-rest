@@ -1,0 +1,14 @@
+spring.jpa:
+  database: POSTGRESQL
+  hibernate.ddl-auto: update
+  show-sql: false
+  dialect: org.hibernate.dialect.PostgreSQLDialect
+
+
+spring.datasource:
+  platform: postgres
+  driverClassName: org.postgresql.Driver
+  url: jdbc:postgresql://localhost:5432/rest_api_udemy?useTimezone=true&serverTimezone=UTC
+  username: postgres
+  password: root
+

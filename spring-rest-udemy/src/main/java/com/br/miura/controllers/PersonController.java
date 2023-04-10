@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -16,8 +17,9 @@ public class PersonController {
     @Autowired
     private PersonServices services;
 
+
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person findById (@PathVariable ("id") String id)
+    public Person findById (@PathVariable ("id") Long id)
             throws Exception {
         return services.findById(id);
     }
@@ -38,7 +40,7 @@ public class PersonController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable(value = "id") String id) {
+    public void delete(@PathVariable(value = "id") Long id) {
         services.delete(id);
     }
 
