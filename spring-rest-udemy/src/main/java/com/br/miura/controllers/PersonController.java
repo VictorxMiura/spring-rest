@@ -4,6 +4,7 @@ import com.br.miura.models.Person;
 import com.br.miura.services.PersonServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +20,8 @@ public class PersonController {
 
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person findById (@PathVariable ("id") Long id)
-            throws Exception {
+    public Person findById (@PathVariable (value = "id") Long id)
+        {
         return services.findById(id);
     }
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -40,8 +41,10 @@ public class PersonController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
         services.delete(id);
+        return ResponseEntity.noContent().build();
+
     }
 
 
