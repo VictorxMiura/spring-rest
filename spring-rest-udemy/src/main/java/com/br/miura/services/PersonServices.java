@@ -1,6 +1,8 @@
 package com.br.miura.services;
 
+import com.br.miura.data.vo.v1.PersonVO;
 import com.br.miura.exceptionmodels.ResourceNotFoundException;
+import com.br.miura.mapper.ModelMapping;
 import com.br.miura.models.Person;
 import com.br.miura.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,10 @@ public class PersonServices {
     PersonRepository repository;
     private Logger logger = Logger.getLogger(PersonServices.class.getName());
 
-    public List<Person> findAll() {
+    public List<PersonVO> findAll() {
 
 
-        return repository.findAll();
+        return ModelMapping.parseListObjects(repository.findAll(), PersonVO.class);
 
        /* mock
        List<Person> persons = new ArrayList<>();
@@ -31,12 +33,13 @@ public class PersonServices {
     }
 
 
-    public Person findById(Long id) {
+    public PersonVO findById(Long id) {
 
         logger.info("Finding One Person");
 
-        return repository.findById(id)
+        var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this id! "));
+        return ModelMapping.parseObject(entity, PersonVO.class);
 
         /*Isso é um mock, linhas de codigos para ajustar na sustentação inicial do projeto
         private Person MockPerson(int i) {
@@ -51,12 +54,14 @@ public class PersonServices {
     }
 
 
-    public Person create(Person person) {
+    public PersonVO create(PersonVO person) {
         logger.info("Creating one person!");
-        return repository.save(person);
+        var entity = ModelMapping.parseObject(person, Person.class);
+            var vo = ModelMapping.parseObject(repository.save(entity), PersonVO.class);
+            return vo;
     }
 
-    public Person update(Person person) {
+    public PersonVO update(PersonVO person) {
         logger.info("Updating a person!");
 
          var entity = repository.findById(person.getId())
@@ -67,7 +72,8 @@ public class PersonServices {
         entity.setAddress(person.getAddress());
         entity.setGender(person.getGender());
 
-        return repository.save(person);
+        var vo = ModelMapping.parseObject(repository.save(entity), PersonVO.class);
+        return vo;
     }
     public void delete(Long id) {
         logger.info("Deleting one person!");
