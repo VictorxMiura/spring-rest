@@ -1,4 +1,4 @@
-package com.br.miura.data.vo.v1;
+package com.br.miura.data.vo.v2;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -14,7 +15,7 @@ import java.io.Serializable;
 
 
 
-public class PersonVO implements Serializable {
+public class PersonVOV2 implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
@@ -27,4 +28,6 @@ public class PersonVO implements Serializable {
     private String address;
 
     private String gender;
+
+    private Date birthDay;
 }

@@ -1,8 +1,10 @@
 package com.br.miura.services;
 
 import com.br.miura.data.vo.v1.PersonVO;
+import com.br.miura.data.vo.v2.PersonVOV2;
 import com.br.miura.exceptionmodels.ResourceNotFoundException;
 import com.br.miura.mapper.ModelMapping;
+import com.br.miura.mapper.custom.PersonMapper;
 import com.br.miura.models.Person;
 import com.br.miura.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ public class PersonServices {
 
     @Autowired
     PersonRepository repository;
+    @Autowired
+    PersonMapper mapper ;
     private Logger logger = Logger.getLogger(PersonServices.class.getName());
 
     public List<PersonVO> findAll() {
@@ -58,6 +62,12 @@ public class PersonServices {
         logger.info("Creating one person!");
         var entity = ModelMapping.parseObject(person, Person.class);
             var vo = ModelMapping.parseObject(repository.save(entity), PersonVO.class);
+            return vo;
+
+    }public PersonVOV2 createV2(PersonVOV2 person) {
+        logger.info("Creating one person with V2!");
+        var entity = mapper.convertVoToEntity(person);
+            var vo = mapper.convertEntityToVo(repository.save(entity));
             return vo;
     }
 
