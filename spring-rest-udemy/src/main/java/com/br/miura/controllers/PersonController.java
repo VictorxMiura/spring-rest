@@ -13,7 +13,7 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("api/person/v1")
 public class PersonController {
 
     @Autowired
@@ -36,10 +36,10 @@ public class PersonController {
         return services.create(person);
     }
 
-    @PostMapping(value = "/v2", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public PersonVOV2 createV2(@RequestBody PersonVOV2 person){
-        return services.createV2(person);
-    }
+//    @PostMapping(value = "/v2", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+//    public PersonVOV2 createV2(@RequestBody PersonVOV2 person){
+//        return services.createV2(person);
+//    }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public PersonVO update(@RequestBody PersonVO person){
