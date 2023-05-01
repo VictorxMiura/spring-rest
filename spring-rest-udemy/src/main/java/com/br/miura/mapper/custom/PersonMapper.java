@@ -1,7 +1,9 @@
 package com.br.miura.mapper.custom;
 
+
 import com.br.miura.data.vo.v2.PersonVOV2;
 import com.br.miura.models.Person;
+
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -28,4 +30,6 @@ public class PersonMapper {
         entity.setGender(person.getGender());
         return entity;
     }
+
+
 }

@@ -1,24 +1,28 @@
 package com.br.miura.data.vo.v1;
 
+import com.github.dozermapper.core.Mapping;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import org.springframework.hateoas.RepresentationModel;
+
+import java.io.Serial;
 import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 
 
-
-public class PersonVO implements Serializable {
+public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
-
-    private long id;
+    @Mapping("id")
+    private long key;
 
     private String firstName;
 

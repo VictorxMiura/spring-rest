@@ -1,5 +1,6 @@
 package com.br.miura.services;
 
+import com.br.miura.controllers.PersonController;
 import com.br.miura.data.vo.v1.PersonVO;
 import com.br.miura.data.vo.v2.PersonVOV2;
 import com.br.miura.exceptionmodels.ResourceNotFoundException;
@@ -8,6 +9,8 @@ import com.br.miura.mapper.custom.PersonMapper;
 import com.br.miura.models.Person;
 import com.br.miura.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,7 +46,9 @@ public class PersonServices {
 
         var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this id! "));
-        return ModelMapping.parseObject(entity, PersonVO.class);
+        PersonVO vo = ModelMapping.parseObject(entity, PersonVO.class);
+        vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
+        return vo;
 
         /*Isso é um mock, linhas de codigos para ajustar na sustentação inicial do projeto
         private Person MockPerson(int i) {
@@ -74,7 +79,7 @@ public class PersonServices {
     public PersonVO update(PersonVO person) {
         logger.info("Updating a person!");
 
-         var entity = repository.findById(person.getId())
+         var entity = repository.findById(person.getKey())
                  .orElseThrow(() -> new ResourceNotFoundException("No records found for this id"));
 
         entity.setFirstName(person.getFirstName());
