@@ -2,7 +2,7 @@ package com.br.miura.services;
 
 import com.br.miura.controllers.PersonController;
 import com.br.miura.data.vo.v1.PersonVO;
-import com.br.miura.data.vo.v2.PersonVOV2;
+//import com.br.miura.data.vo.v2.PersonVOV2;
 import com.br.miura.exceptionmodels.ResourceNotFoundException;
 import com.br.miura.mapper.ModelMapping;
 import com.br.miura.mapper.custom.PersonMapper;
@@ -26,17 +26,13 @@ public class PersonServices {
     private Logger logger = Logger.getLogger(PersonServices.class.getName());
 
     public List<PersonVO> findAll() {
+        logger.info("Finding All Persons!");
+        var persons = ModelMapping.parseListObjects(repository.findAll(), PersonVO.class);
+        persons
+                .stream()
+                .forEach(p -> p.add(linkTo(methodOn(PersonController.class).findById(p.getKey() )).withSelfRel()));
+        return persons;
 
-
-        return ModelMapping.parseListObjects(repository.findAll(), PersonVO.class);
-
-       /* mock
-       List<Person> persons = new ArrayList<>();
-        for (int i = 0; i < 8; i++) {
-           Person person = MockPerson(i);
-           persons.add(person);
-       }
-        */
     }
 
 
@@ -46,7 +42,7 @@ public class PersonServices {
 
         var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this id! "));
-        PersonVO vo = ModelMapping.parseObject(entity, PersonVO.class);
+        var vo = ModelMapping.parseObject(entity, PersonVO.class);
         vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
         return vo;
 
@@ -67,14 +63,15 @@ public class PersonServices {
         logger.info("Creating one person!");
         var entity = ModelMapping.parseObject(person, Person.class);
             var vo = ModelMapping.parseObject(repository.save(entity), PersonVO.class);
-            return vo;
-
-    }public PersonVOV2 createV2(PersonVOV2 person) {
-        logger.info("Creating one person with V2!");
-        var entity = mapper.convertVoToEntity(person);
-            var vo = mapper.convertEntityToVo(repository.save(entity));
+            vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
             return vo;
     }
+//    public PersonVOV2 createV2(PersonVOV2 person) {
+//        logger.info("Creating one person with V2!");
+//        var entity = mapper.convertVoToEntity(person);
+//            var vo = mapper.convertEntityToVo(repository.save(entity));
+//            return vo;
+//    }
 
     public PersonVO update(PersonVO person) {
         logger.info("Updating a person!");
@@ -88,6 +85,7 @@ public class PersonServices {
         entity.setGender(person.getGender());
 
         var vo = ModelMapping.parseObject(repository.save(entity), PersonVO.class);
+        vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
         return vo;
     }
     public void delete(Long id) {

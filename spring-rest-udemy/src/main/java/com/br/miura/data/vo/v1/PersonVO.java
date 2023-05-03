@@ -1,5 +1,7 @@
 package com.br.miura.data.vo.v1;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.github.dozermapper.core.Mapping;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,11 +18,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 
-
+@JsonPropertyOrder({"id", "firstname", "lastname", "address", "gender"})
 public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @JsonProperty("id")
     @Mapping("id")
     private long key;
 
